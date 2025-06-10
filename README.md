@@ -82,6 +82,29 @@ SELECT * FROM accounts WHERE id = 1;
 
 ![image](https://github.com/user-attachments/assets/87ca513e-1083-4318-805a-962030dddebf)
 
+Bonus Task 3: Deadlock:
+
+INSERT INTO accounts VALUES (2, 'Mike', 10);
+
+Транзакція 1:
+
+START TRANSACTION;
+UPDATE accounts SET balance = 50 WHERE id = 2;
+UPDATE accounts SET balance = 150 WHERE id = 1;
+COMMIT;
+
+Транзакція 2:
+
+START TRANSACTION;
+UPDATE accounts SET balance = 50 WHERE id = 1;
+UPDATE accounts SET balance = 150 WHERE id = 2;
+COMMIT;
+
+Починаємо транзакцію 1, змінюємо баланс на акаунті з id = 2, починаємо транзакцію 2, змінюємо баланс, де id = 2, намагаємося змінити першою транзакцією баланс, де id = 1, але ці дані заблоковані транзакцією 2 і отримуємо помилку:
+
+![image](https://github.com/user-attachments/assets/693c81ca-b17f-417c-826c-4c24bb25cfed)
+
+
 
 
 
