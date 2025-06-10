@@ -58,6 +58,32 @@ SELECT * FROM accounts WHERE id = 1;
 
 ![image](https://github.com/user-attachments/assets/65654955-a028-4f62-b1c0-69855864ce14)
 
+Bonus Task 1: Repeatable Read (REPEATABLE READ):
+
+Транзакція 1:
+
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+
+BEGIN;
+UPDATE accounts SET balance = 0 WHERE id = 1;
+COMMIT;
+END;
+
+Транзакція 2:
+
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+
+BEGIN;
+SELECT * FROM accounts WHERE id = 1;
+
+Починаємо транзакцію 2, резульата - баланс = 1000. Починаємо транзакцію 1, змінюємо баланс на 0, комітимо зміни, але не завершуємо транзакцію. Якщо транзакція 2 ще раз прочитає ці дані, то баланс залишиться незмінним (1000) поки транзакція 1 не завершиться.
+
+![image](https://github.com/user-attachments/assets/35b53609-ffc1-4017-ad41-96ab0013f4c3)
+
+![image](https://github.com/user-attachments/assets/87ca513e-1083-4318-805a-962030dddebf)
+
+
+
 
 
 
